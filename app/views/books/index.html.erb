@@ -1,1 +1,29 @@
-book投稿物一覧画面view
+<h2>User info</h2>
+<% @users.each do |user| %>
+
+  <% if user.profile_image.attached? %>
+    <%= image_tag user.profile_image, size: "100x100" %>
+  <% else %>
+    <%= image_tag 'no_image', size: "100x100" %>
+  <% end %>
+<% end %>
+
+<h4>name</h4>
+  <%= current_user.name %>
+
+<h4>introduction</h4>
+  <%= current_user.introduction %>
+
+
+  <%= link_to edit_user_path(@users), class: 'btn btn-outline-secondary btn-block' do %>
+  <% end %>
+
+<h2>New Book</h2>
+<%= form_with model: Book.new do |f|%>
+  <h4>Title</h4>
+  <%= f.text_field :title %>
+  <h4>Opinion</h4>
+  <%= f.text_area :body %><br>
+
+  <%= f.submit 'Create Book' %>
+<% end %>
