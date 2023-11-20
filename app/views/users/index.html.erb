@@ -9,7 +9,10 @@
   </thead>
 
   <tbody>
-
+    <% @users.each do |user| %>
+      <%= user.profile_image.attached? %>
+      <%= user.name %>
+    <% end %>
   </tbody>
 </table>
 

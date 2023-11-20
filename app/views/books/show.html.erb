@@ -1,1 +1,25 @@
-投稿されたbookの詳細画面view
+<h2>Book detail</h2>
+  <label class="Book_Detail">
+        <% if @book.profile_image.attached? %>
+          <%= image_tag @book.profile_image, size: "100x100" %>
+        <% else %>
+          <%= image_tag 'no_image', size: "100x100" %>
+        <% end %>
+        <tr>
+          <td>
+            <%= link_to @book.user.name, users_path(@book.user.id) %>
+          </td>
+          <td>
+            <%= link_to @book.title, book_path(@book.id) %>
+          </td>
+          <td>
+            <%= @book.body %>
+          </td>
+          <td>
+            <%= link_to "Edit", edit_book_path(@book.id) %>
+          </td>
+          <td>
+            <%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+          </td>
+        </tr>
+  </label>
