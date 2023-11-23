@@ -3,20 +3,18 @@
     <div class="col-sm-12 col-md-8 col-lg-5 mx-auto">
       <h2>User info</h2>
 
-              <% if @user.errors.any? %>
-
-        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this book from being saved:</h2>
-          <ul>
-            <% @user.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
+     <div class="error">
+       <% if @user.errors.any? %>
+         <%= @user.errors.count %> errors prohibited this book from being saved:
+         <ul>
+           <% @user.errors.full_messages.each do |message| %>
+             <li><%= message %></li>
+           <% end %>
+         </ul>
+       <% end %>
+     </div>
 
       <%= form_with model: @user, method: :patch do |f| %>
-
       <div class="form-group">
         <label for="user_edit_Name">Name</label><br>
           <%= f.text_field :name, autofocus: true, id:"user_edit_tName", placeholder:"名前" %>

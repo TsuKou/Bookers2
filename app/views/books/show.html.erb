@@ -1,3 +1,12 @@
+<% if @book.errors.any? %>
+  <%= @book.errors.count "errors" %>prohibited this book from being saved:
+  <ul>
+    <% book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
   <div class= "container px-5 px-ms-0">
     <div class= "row">
       <div class= "col-md-3">
@@ -13,12 +22,12 @@
       <table class="table">
         <tr>
           <td>
-            <% if @book.profile_image.attached? %>
-              <%= image_tag @book.profile_image, size: "100x100" %>
+            <% if @book.user.profile_image.attached? %>
+              <%= image_tag @book.user.profile_image, size: "100x100" %>
             <% else %>
               <%= image_tag 'no_image', size: "100x100" %>
             <% end %><br>
-              <%= link_to @book.user.name, user_path(@book.id) %>
+              <%= link_to @book.user.name, user_path(@book.user.id) %>
           </td>
           <td>
             <%= link_to @book.title, book_path(@book.id) %>
