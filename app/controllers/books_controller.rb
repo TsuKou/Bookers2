@@ -8,18 +8,18 @@ before_action :is_matching_login_user, only: [:edit, :update, :destroy]
       flash[:notice] = "You have created book successfully."
       redirect_to book_path(@book.id)
     else
-      flash[:alert] = "error"
-      render :new
+      render "new"
     end
   end
 
   def index
-    @book = Book.new(book_params)
+    @book = Book.new
     @books = Book.all
     @user = current_user
   end
 
   def show
+    @book_new = Book.new
     @book = Book.find(params[:id])
     @books = Book.all
     @user = current_user
@@ -30,9 +30,14 @@ before_action :is_matching_login_user, only: [:edit, :update, :destroy]
   end
 
   def update
-    book = Book.find(params[:id])
-    book.update(book_params)
-    redirect_to book_path
+    @book = Book.find(params[:id])
+    @book.update(book_params)
+    if @book.update(book_params)
+      flash[:notice] = "You have updated book successfully."
+      redirect_to book_path(@book.id)
+    else
+      render "edit"
+    end
   end
 
   def destroy
@@ -48,10 +53,10 @@ before_action :is_matching_login_user, only: [:edit, :update, :destroy]
   end
 
   def is_matching_login_user
-    user = User.find(params[:id])
+    book = Book.find(params[:id])
+    user = book.user
     unless user.id == current_user.id
       redirect_to user_path(current_user)
     end
   end
-
 end
