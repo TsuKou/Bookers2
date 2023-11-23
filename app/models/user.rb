@@ -9,7 +9,8 @@ class User < ApplicationRecord
   has_one_attached :profile_image
 
   validates :name, presence: { message: " is too short (minimum is 2 characters)" },
-    length: {minimum:2, maximum:20}
+                   length: {minimum:2, maximum:20},
+                   uniqueness: true
 
   validates :introduction,
     length: {maximum:50}
